@@ -9,20 +9,18 @@ public class Operations extends Calculator{
         String result = "";
         //while (calculation.length() > 0) {
 
-            if (calculation.split("\\*")[0].length() > calculation.split("\\/")[0].length()){
+            if (calculation.split("\\*")[0].length() > calculation.split("\\/")[0].length() & calculation.split("\\*")[0].length() > calculation.split("\\+")[0].length()){
+                BigDecimal a = new BigDecimal(calculation.split("\\*")[0]);
+                calculation = calculation.substring(calculation.split("\\*")[0].length(), 0);
                 //Multiplication
             }
             
-            if (calculation.split("\\*")[0].length() < calculation.split("\\/")[0].length()){
+            if (calculation.split("\\/")[0].length() > calculation.split("\\+")[0].length()){
                 //Division
             }
 
-            if (calculation.split("\\+")[0].length() > calculation.split("\\-")[0].length()){
+            else {
                 //Addition
-            }
-
-            else if (calculation.split("\\+")[0].length() < calculation.split("\\-")[0].length()){
-                //Subtraction
             }
 
             
