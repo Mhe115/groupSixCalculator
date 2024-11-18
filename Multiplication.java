@@ -1,6 +1,6 @@
 import java.math.BigDecimal;
 
-public class Multiplication extends Opperations{
+public class Multiplication extends Operations{
 
     BigDecimal a = new BigDecimal(0);
     BigDecimal b = new BigDecimal(0);

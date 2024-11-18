@@ -1,6 +1,6 @@
 import java.math.BigDecimal;
 
-public class Subtraction extends Opperations{
+public class Subtraction extends Operations{
 
     BigDecimal a = new BigDecimal(0);
     BigDecimal b = new BigDecimal(0);
