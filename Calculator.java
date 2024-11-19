@@ -6,9 +6,8 @@ public class Calculator {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter your calculation: ");
         calculation = input.nextLine();
-        System.out.println("");
         Operations operation = new Operations();
-        System.out.println(operation.Calculate());
+        operation.Calculate();
         input.close();
 
     }
