@@ -9,6 +9,5 @@ public class Calculator {
         Operations operation = new Operations();
         operation.Calculate();
         input.close();
-
     }
 }
