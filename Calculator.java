@@ -6,8 +6,12 @@ public class Calculator {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter your calculation: ");
         calculation = input.nextLine();
-        Operations operation = new Operations();
-        operation.Calculate();
+        SyntaxHandler syntax = new SyntaxHandler();
+        if(syntax.verifiyString(calculation)) {
+            Operations operation = new Operations();
+            operation.Calculate();
+        }
         input.close();
+
     }
 }
