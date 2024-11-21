@@ -7,46 +7,26 @@ public class Operations extends Calculator{
     Operations(){}
 
     protected void Calculate(){
-        String result = "";
-            if (calculation.split("\\*")[0].length() < calculation.split("\\/")[0].length()){
-                BigDecimal a = new BigDecimal(getNextNum());
-                try{
-                    calculation = calculation.substring(calculation.split("\\*")[0].length() + 1, calculation.length());
-                } catch(StringIndexOutOfBoundsException e){
-                    calculation = "";
-                }
-                BigDecimal b = new BigDecimal(getNextNum());
-                try{
-                    calculation = calculation.substring(getNextNum().length(), calculation.length());
-                } catch(StringIndexOutOfBoundsException e){
-                    calculation = "";
-                }
-                
-                //Multiplication
-                Multiplication multiplication = new Multiplication(a, b);
-                calculation = multiplication.multiply().toString()  + calculation;
-                System.out.println(calculation);
-            }
+        if (calculation.split("\\*")[0].length() < calculation.split("\\/")[0].length()){
+            //Multiplication
+            Multiplication multiplication = new Multiplication(getA(), getB());
+            calculation = multiplication.multiply().toString()  + calculation;
+            System.out.println(calculation);
+        }
             
-            if (calculation.split("\\/")[0].length() < calculation.split("\\*")[0].length()){
-                BigDecimal a = new BigDecimal(calculation.split("\\/")[0]);
-                BigDecimal b = new BigDecimal(getNextNum());
-                calculation = calculation.substring(calculation.split("\\/")[0].length() + getNextNum().length() + 1, calculation.length());
-                System.out.println(a + " " + calculation + " " + b);
-                //division
-                Division division = new Division(a, b);
-                calculation = division.divide().toString() + calculation;
-                System.out.println(calculation);
-            }
-
-            else {
-                //Addition
-            }
-
-            if (lastCalculate != calculation){
-                lastCalculate = calculation;
-                Calculate();
-            }
+        if (calculation.split("\\/")[0].length() < calculation.split("\\*")[0].length()){
+            //division
+            Division division = new Division(getA(), getB());
+            calculation = division.divide().toString() + calculation;
+            System.out.println(calculation);
+        }
+ 
+        //Addition
+        //----------------------------------\\
+        if (lastCalculate != calculation){
+            lastCalculate = calculation;
+            Calculate();
+        }
 
     }
 
@@ -54,7 +34,34 @@ public class Operations extends Calculator{
         String runningNum = calculation.split("\\*")[0];
         runningNum = runningNum.split("\\/")[0];
         runningNum = runningNum.split("\\+")[0];
-        runningNum = runningNum.split("\\-")[0];
+        if (runningNum.split("\\-")[0].length() != 0) {
+            runningNum = runningNum.split("\\-")[0];    
+        }
+        
         return runningNum;
+    }
+
+    private BigDecimal getA(){
+        //Finds the next number in the string and shortens calculation accordingly
+        BigDecimal a = new BigDecimal(getNextNum());
+        try{
+            calculation = calculation.substring(getNextNum().length() + 1, calculation.length());
+        } catch(StringIndexOutOfBoundsException e){
+            calculation = "";
+        }
+        return a;
+        
+    }
+
+    private BigDecimal getB(){
+        //Finds the next number in the string and shortens calculation accordingly
+        BigDecimal b = new BigDecimal(getNextNum());
+        try{
+            calculation = calculation.substring(getNextNum().length(), calculation.length());
+        } catch(StringIndexOutOfBoundsException e){
+            calculation = "";
+        }
+
+        return b;
     }
 }
