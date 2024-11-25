@@ -2,6 +2,7 @@ public class SyntaxHandler {
     public boolean verifiyString(String input)
     {
         boolean valid = true;
+        int negative_count = 0;
         //remove the
         input = input.replace(" ","");
 
@@ -20,12 +21,25 @@ public class SyntaxHandler {
                 case '*':
                 case '%':
                 case '^':
+                    if(test_chr=='-')
+                    {
+                        negative_count +=1;
+                        if(negative_count>2)
+                        {
+                            valid = false;
+                        }
+                    }
+                    else {
+                        negative_count = 0;
+                    }
                     String value_after_operation = String.valueOf(input.charAt(i+1));
-
-                    try {
-                        Double num = Double.parseDouble(value_after_operation);
-                    } catch (NumberFormatException e) {
-                        valid = false;
+                    //allow negative numbers
+                    if(input.charAt(i+1)!='-') {
+                        try {
+                            Double num = Double.parseDouble(value_after_operation);
+                        } catch (NumberFormatException e) {
+                            valid = false;
+                        }
                     }
 
                     break;

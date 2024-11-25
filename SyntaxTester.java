@@ -1,7 +1,7 @@
 public class SyntaxTester {
     public static void main(String args[])
     {
-        String test = "2 + 2";
+        String test = "2 --2";
         SyntaxHandler syntaxHandler = new SyntaxHandler();
         if(!syntaxHandler.verifiyString(test))
         {
@@ -9,7 +9,7 @@ public class SyntaxTester {
         }
         else
         {
-            System.out.println();
+            System.out.println("VALID");
         }
 
     }
