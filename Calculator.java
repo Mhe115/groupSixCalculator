@@ -6,6 +6,7 @@ public class Calculator {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter your calculation: ");
         calculation = input.nextLine();
+        calculation = calculation.replace(" ","");
         //SyntaxHandler syntax = new SyntaxHandler();
         //if(syntax.verifiyString(calculation)) {
             Operations operation = new Operations();
