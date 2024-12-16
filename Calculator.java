@@ -10,9 +10,20 @@ public class Calculator {
         //SyntaxHandler syntax = new SyntaxHandler();
         //if(syntax.verifiyString(calculation)) {
             Operations operation = new Operations();
-            operation.Calculate();
+            //operation.Calculate();
         //}
         input.close();
 
+    }
+    public void UseCalculator(String input)
+    {
+
+
+        SyntaxHandler syntax = new SyntaxHandler();
+
+        Operations operation = new Operations();
+        operation.calc(input.replace(" ",""));
+
+        //input.close();
     }
 }

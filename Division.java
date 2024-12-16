@@ -10,6 +10,15 @@ public class Division extends Operations{
     }
 
     public BigDecimal divide(){
-        return a.divide(b);
+        try
+        {
+            return a.divide(b);
+        }
+        catch (ArithmeticException e)
+        {
+
+        }
+
+        return null;
     }
 }
