@@ -84,12 +84,13 @@ public class SyntaxHandler {
                     comma_count+=1;
                     if(comma_count>3)
                     {
+                        System.out.println("Too many term");
                         valid = false;
                     }
                 }
             }
         }
-        System.out.println("Clac is:" + valid);
+        //System.out.println("Clac is:" + valid);
         return valid;
     }
 }

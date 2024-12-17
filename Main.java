@@ -33,6 +33,7 @@ public class Main {
                 try {
                     System.out.println("Press the numbers to acess the respective tools of this program\n" +
                             "1 - Calculator     2 - Quadratic calculator    3 - Problem Generator   4 - Exit Program");
+
                     switch (input.nextInt()) {
                         case 1:
                             Current_menu = mode.CALCULATOR;
@@ -44,6 +45,7 @@ public class Main {
                             Current_menu = mode.RANDOMQUESTION;
                             break;
                         case 4:
+                            System.out.println("Thank you for using Team 6 Calculator");
                             using_program = false;
                             break;
                         default:
@@ -56,6 +58,7 @@ public class Main {
                     input.nextLine();
                     System.out.println("Invalid input, please only enter the designated numbers");
                 }
+
                 break;
                 case CALCULATOR:
                     //in this menu, we use the calculator class to preform calculations
@@ -67,18 +70,22 @@ public class Main {
                         Current_menu = mode.MAINMENU;
                     }
                     else {
-                        String calculation = user_input;
-                        SyntaxHandler tester = new SyntaxHandler();
-                        //allow the user to input, if what they enter is valid according to the verify string
-                        //method, we calcualte using that input
-                        if(tester.verifiyString(calculation)) {
-                            calc.UseCalculator(calculation);
+                        try {
+                            String calculation = user_input;
+                            SyntaxHandler tester = new SyntaxHandler();
+                            //allow the user to input, if what they enter is valid according to the verify string
+                            //method, we calcualte using that input
+                            if (tester.verifiyString(calculation)) {
+                                calc.UseCalculator(calculation);
+                            } else {
+                                System.out.println();
+                                input.nextLine();
+                            }
                         }
-                        else
+                        catch (NumberFormatException e)
                         {
-                            input.nextLine();
-                        }
 
+                        }
                         //input.close();
                     }
                     break;
@@ -92,7 +99,7 @@ public class Main {
                             String calculation = user_input;
                             SyntaxHandler tester = new SyntaxHandler();
                             String[] num_array = calculation.split(",");
-                            System.out.println(Arrays.toString(num_array));
+                            //System.out.println(Arrays.toString(num_array));
                             //allow the user to input, if what they enter is valid according to the verify string
                             //method, we calcualte using that input
                             if (tester.veriftyQuadratic(calculation)) {
@@ -107,11 +114,24 @@ public class Main {
                     }
                     catch (NumberFormatException e)
                     {
+                        System.out.println("Error with input");
+                        input.nextLine();
+                    }
+                    catch (ArrayIndexOutOfBoundsException e)
+                    {
+                        System.out.println("Please enter three terms");
                         input.nextLine();
                     }
                     break;
                 case RANDOMQUESTION:
-                    randomq.questionmethod();
+                    user_input = input.nextLine();
+                    if(user_input.equals("esc"))
+                    {
+                        Current_menu=mode.MAINMENU;
+                    }
+                    else {
+                        randomq.questionmethod(user_input);
+                    }
                     break;
             }
         }
