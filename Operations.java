@@ -41,12 +41,12 @@ public class Operations extends Calculator{
             System.out.println(calculation);
 
         }
-
+        
         // ^ first cause of BIMDAS
         while (calculation.contains("^")) {
             calculation = evaluate(calculation, "^");
         }
-
+        
         // Then we do * and /
         while (calculation.contains("*") || calculation.contains("/")) {
             calculation = evaluate(calculation, "*/");
@@ -62,55 +62,51 @@ public class Operations extends Calculator{
     }
 
     private static String evaluate(String calculation, String operators) {
-
-        int minus_count = 0;
-        boolean minus_valid = false;
+        //int minus_count = 0;
+        //boolean minus_valid = false;
+        double leftOperand = 0, rightOperand = 0; //make sure they are init or it will give out
         for (int i = 0; i < calculation.length(); i++) { //for loop to make sure that all opperations of that type are completed
             char currentChar = calculation.charAt(i);
-            if(currentChar=='-')
-            {
-                minus_count+=1;
-            }
-            else
-            {
-                minus_count = 0;
-            }
             if (operators.indexOf(currentChar) != -1) {
 
                 // Find the left operation
                 int leftStart = i - 1;
 
-                while (leftStart >= 0 && (Character.isDigit(calculation.charAt(leftStart)) || calculation.charAt(leftStart) == '.'||(calculation.charAt(leftStart)=='-'&&minus_count<3))) {
+                while (leftStart >= 0 && (Character.isDigit(calculation.charAt(leftStart)) || calculation.charAt(leftStart) == '.' || calculation.charAt(leftStart) == '-')) {
                     leftStart--;
                 }
                 leftStart++;
-                System.out.println("Left Start: " + leftStart);
-                System.out.println("i:"+ i);
-                System.out.println(calculation.substring(leftStart, i));
-                //my attempt at negative numbers, feel free to do what you have to
-                double leftOperand;
+                //System.out.println("Left Start: " + leftStart);
+                //System.out.println("i:"+ i);
+                //System.out.println(calculation.substring(leftStart, i));
+                ////my attempt at negative numbers, feel free to do what you have to
                 try {
                     leftOperand = Double.parseDouble(calculation.substring(leftStart, i));
                 }
                 catch (Exception e)
                 {
-                    continue;
+                    //System.err.println("Left Opp error:" + e);
+                    System.exit(0);
                 }
                 // Find the right operation
+                // Find the right operand, including handling for a negative sign
                 int rightEnd = i + 1;
+                if (calculation.charAt(rightEnd) == '-') {
+                    rightEnd++; // Move past the negative sign
+                }
                 while (rightEnd < calculation.length() && (Character.isDigit(calculation.charAt(rightEnd)) || calculation.charAt(rightEnd) == '.')) {
                     rightEnd++;
                 }
 
-                double rightOperand;
                 try {
                     rightOperand = Double.parseDouble(calculation.substring(i + 1, rightEnd));
                 }
                 catch (Exception e)
                 {
-                    continue;
+                    System.err.println("Right Opp error:" + e);
                 }
                 // Perform the operation -temp
+                try {
                 double result = 0;
                 switch (currentChar) {
                     case '^':
@@ -134,6 +130,9 @@ public class Operations extends Calculator{
                 calculation = calculation.substring(0, leftStart) + result + calculation.substring(rightEnd);
                 System.out.println(calculation);
                 break;
+                } catch (Exception e) {
+                    System.err.println("Final errors" + e);
+                }
             }
         }
 

@@ -7,11 +7,8 @@ public class Calculator {
         System.out.println("Enter your calculation: ");
         calculation = input.nextLine();
         calculation = calculation.replace(" ","");
-        //SyntaxHandler syntax = new SyntaxHandler();
-        //if(syntax.verifiyString(calculation)) {
-            Operations operation = new Operations();
-            //operation.Calculate();
-        //}
+        Calculator calculator = new Calculator();
+        calculator.UseCalculator(calculation);
         input.close();
 
     }
@@ -19,10 +16,9 @@ public class Calculator {
     {
 
 
-        SyntaxHandler syntax = new SyntaxHandler();
+        //SyntaxHandler syntax = new SyntaxHandler();
 
-        Operations operation = new Operations();
-        operation.calc(input.replace(" ",""));
+        Operations.calc(input.replace(" ",""));
 
         //input.close();
     }
