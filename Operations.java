@@ -15,7 +15,7 @@ public class Operations extends Calculator{
             int open_bracket_index = bracket_finder.lastIndexOf("(");
             //get the calculation inside the brakets we're looking for
             temp_calc=calculation.substring(open_bracket_index+1,closed_bracket_index);
-            System.out.println("("+temp_calc+")");
+            //System.out.println("("+temp_calc+")");
             //do operations on temp calc
             while (temp_calc.contains("^"))
             {
@@ -25,8 +25,9 @@ public class Operations extends Calculator{
             {
                 temp_calc = evaluate(temp_calc,"*/");
             }
-            while (temp_calc.contains("+")||temp_calc.contains("-"))
+            while (temp_calc.contains("+")||(!temp_calc.matches(".*\\d-.*") && !(temp_calc.charAt(0) == '-') && temp_calc.contains("-"))) // this ensures that - is only evaluated when it means take not for a negitive num
             {
+                System.err.println("fuck's sake");
                 temp_calc = evaluate(temp_calc,"+-");
             }
             //create a string builder with our calculation string
@@ -40,9 +41,10 @@ public class Operations extends Calculator{
             calculation = calc_sb.toString();
             System.out.println(calculation);
 
+
         }
         
-        // ^ first cause of BIMDAS
+        // ^ next cause of BIMDAS
         while (calculation.contains("^")) {
             calculation = evaluate(calculation, "^");
         }
@@ -53,7 +55,7 @@ public class Operations extends Calculator{
         }
 
         // Then + and -
-        while (calculation.contains("+") || calculation.contains("-")) {
+        while (calculation.contains("+") || (!calculation.matches(".*\\d-.*") && !(calculation.charAt(0) == '-') && calculation.contains("-"))) { // this ensures that - is only evaluated when it means take not for a negitive num
             calculation = evaluate(calculation, "+-");
         }
 
@@ -62,14 +64,15 @@ public class Operations extends Calculator{
     }
 
     private static String evaluate(String calculation, String operators) {
+        //System.out.println(calculation);
         //int minus_count = 0;
         //boolean minus_valid = false;
         double leftOperand = 0, rightOperand = 0; //make sure they are init or it will give out
         for (int i = 0; i < calculation.length(); i++) { //for loop to make sure that all opperations of that type are completed
             char currentChar = calculation.charAt(i);
-            if (operators.indexOf(currentChar) != -1) {
+            if (operators.indexOf(currentChar) != -1) { //if curren7+(2*-2)t char exists here
 
-                // Find the left operation
+                // Find the left operand
                 int leftStart = i - 1;
 
                 while (leftStart >= 0 && (Character.isDigit(calculation.charAt(leftStart)) || calculation.charAt(leftStart) == '.' || calculation.charAt(leftStart) == '-')) {
@@ -79,17 +82,15 @@ public class Operations extends Calculator{
                 //System.out.println("Left Start: " + leftStart);
                 //System.out.println("i:"+ i);
                 //System.out.println(calculation.substring(leftStart, i));
-                ////my attempt at negative numbers, feel free to do what you have to
                 try {
                     leftOperand = Double.parseDouble(calculation.substring(leftStart, i));
                 }
                 catch (Exception e)
                 {
-                    //System.err.println("Left Opp error:" + e);
+                    System.err.println("Left Opp error:" + e);
                     System.exit(0);
                 }
-                // Find the right operation
-                // Find the right operand, including handling for a negative sign
+                // Find the right operand
                 int rightEnd = i + 1;
                 if (calculation.charAt(rightEnd) == '-') {
                     rightEnd++; // Move past the negative sign
@@ -125,7 +126,7 @@ public class Operations extends Calculator{
                         result = leftOperand - rightOperand;
                         break;
                 }
-                System.out.println(Double.toString(leftOperand) + (char)currentChar + Double.toString(rightOperand) +"="+result);
+                System.out.println(Double.toString(leftOperand) + (char)currentChar + Double.toString(rightOperand) +" = "+result);
                 // Replace the evaluated part of the calculation with the result
                 calculation = calculation.substring(0, leftStart) + result + calculation.substring(rightEnd);
                 System.out.println(calculation);
@@ -135,7 +136,6 @@ public class Operations extends Calculator{
                 }
             }
         }
-
         return calculation;
     }
 }
