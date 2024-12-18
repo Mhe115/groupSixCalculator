@@ -5,6 +5,15 @@ public class Operations extends Calculator{
         calculation = calculation.replace(" ", "");
         String temp_calc;
 
+        //rearanging brackets that indicate multiplication e.g 2(9+8) >>>> 2*(9+8)
+        if (calculation.matches(".*\\d\\(.*") || calculation.matches(".*\\d\\(.*")) { //.* just means anything can be there \\d means any digit (0-9) and ( means an open bracket
+            // Replace digit followed by an open bracket 8( -> 8*(
+            calculation = calculation.replaceAll("(\\d)(\\()", "$1*$2"); //$1 means the first chunk of String e.g in 8(9) it would be 8
+
+            // Replace closing bracket followed by a digit )9 -> )*9
+            calculation = calculation.replaceAll("(\\))(\\d)", "$1*$2"); //$2 means the second chunck of String e.g in 8(9) it would be (9)
+        }
+
         //do brackets first
         while (calculation.contains("(")||calculation.contains(")"))
         {
