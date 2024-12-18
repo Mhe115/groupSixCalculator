@@ -1,14 +1,7 @@
-import java.math.BigDecimal;
+public class Addition implements ExecuteOpperation {
 
-public class Addition extends Operations{
-
-    BigDecimal a = new BigDecimal(0);
-    BigDecimal b = new BigDecimal(0);
-    Addition (BigDecimal a, BigDecimal b){
-        this.a = a;
-        this.b = b;
-    }
-    public BigDecimal Add(){
-        return a.add(b);
+    @Override
+    public double Execute(double a, double b){
+        return a + b;
     }
 }

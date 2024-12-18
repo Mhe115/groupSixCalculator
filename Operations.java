@@ -1,4 +1,4 @@
-public class Operations extends Calculator{
+public class Operations{
 
     public static double calc(String calculation) {
         // Space Removal
@@ -83,7 +83,7 @@ public class Operations extends Calculator{
                 // Find the left operand
                 int leftStart = i - 1;
 
-                while (leftStart >= 0 && (Character.isDigit(calculation.charAt(leftStart)) || calculation.charAt(leftStart) == '.' || calculation.charAt(leftStart) == '-')) {
+                while (leftStart >= 0 && (Character.isDigit(calculation.charAt(leftStart)) || calculation.charAt(leftStart) == '.' || (calculation.charAt(leftStart) == '-') && (leftStart == 0 || !Character.isDigit(calculation.charAt(leftStart - 1))))) {
                     leftStart--;
                 }
                 leftStart++;
@@ -122,16 +122,20 @@ public class Operations extends Calculator{
                         result = Math.pow(leftOperand, rightOperand);
                         break;
                     case '*':
-                        result = leftOperand * rightOperand;
+                        Multiplication multiplication = new Multiplication();
+                        result = multiplication.Execute(leftOperand, rightOperand);
                         break;
                     case '/':
-                        result = leftOperand / rightOperand;
+                        Division division = new Division();
+                        result = division.Execute(leftOperand, rightOperand);
                         break;
                     case '+':
-                        result = leftOperand + rightOperand;
+                        Addition addition = new Addition();
+                        result = addition.Execute(leftOperand, rightOperand);
                         break;
                     case '-':
-                        result = leftOperand - rightOperand;
+                        Subtraction subtraction = new Subtraction();
+                        result = subtraction.Execute(leftOperand, rightOperand);
                         break;
                 }
                 System.out.println(Double.toString(leftOperand) + (char)currentChar + Double.toString(rightOperand) +" = "+result);
