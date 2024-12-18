@@ -4,13 +4,19 @@ public class Operations{
         // Space Removal
         calculation = calculation.replace(" ", "");
         String temp_calc;
+        //replacing p with 3.1415926536 and e with 2.718281828
+        if (calculation.contains("e") || calculation.contains("p")) {
+            calculation = calculation.replaceAll("e", "2.718281828");
+
+            calculation = calculation.replaceAll("p", "3.1415926536");
+        }
 
         //rearanging brackets that indicate multiplication e.g 2(9+8) >>>> 2*(9+8)
         if (calculation.matches(".*\\d\\(.*") || calculation.matches(".*\\d\\(.*")) { //.* just means anything can be there \\d means any digit (0-9) and ( means an open bracket
-            // Replace digit followed by an open bracket 8( -> 8*(
+            // Replace digit followed by an open bracket 8( >>>>> 8*(
             calculation = calculation.replaceAll("(\\d)(\\()", "$1*$2"); //$1 means the first chunk of String e.g in 8(9) it would be 8
 
-            // Replace closing bracket followed by a digit )9 -> )*9
+            // Replace closing bracket followed by a digit )9 >>>>>>>> )*9
             calculation = calculation.replaceAll("(\\))(\\d)", "$1*$2"); //$2 means the second chunck of String e.g in 8(9) it would be (9)
         }
 
@@ -78,30 +84,32 @@ public class Operations{
         double leftOperand = 0, rightOperand = 0; //make sure they are init or it will give out
         for (int i = 0; i < calculation.length(); i++) { //for loop to make sure that all opperations of that type are completed
             char currentChar = calculation.charAt(i);
-            if (operators.indexOf(currentChar) != -1) { //if curren7+(2*-2)t char exists here
+            if (operators.indexOf(currentChar) != -1) { //if current char exists here
 
                 // Find the left operand
                 int leftStart = i - 1;
 
-                while (leftStart >= 0 && (Character.isDigit(calculation.charAt(leftStart)) || calculation.charAt(leftStart) == '.' || (calculation.charAt(leftStart) == '-') && (leftStart == 0 || !Character.isDigit(calculation.charAt(leftStart - 1))))) {
-                    leftStart--;
+                //Breaking this next while loop into multiple lines to keep comments clean
+                while (leftStart >= 0 &&  //makes sure we dont go out of bounds AND
+                (Character.isDigit(calculation.charAt(leftStart)) || //the character we are currently on is a digit OR
+                calculation.charAt(leftStart) == '.' || //the character we are currently on is a decimal point OR
+                (calculation.charAt(leftStart) == '-') && (leftStart == 0 || !Character.isDigit(calculation.charAt(leftStart - 1))))) { //The character we are currently on is a minus sign that doesn't have a digit before it aka a minus sign that indicates a negitive number
+                    leftStart--; //this decriments as we are going from right to lift of the string
                 }
-                leftStart++;
-                //System.out.println("Left Start: " + leftStart);
-                //System.out.println("i:"+ i);
-                //System.out.println(calculation.substring(leftStart, i));
+                leftStart++; // the while loop above will always decriment one too far
+
                 try {
-                    leftOperand = Double.parseDouble(calculation.substring(leftStart, i));
+                    leftOperand = Double.parseDouble(calculation.substring(leftStart, i)); //leftOpperand is like th 6 in 6+9
                 }
                 catch (Exception e)
                 {
                     System.err.println("Left Opp error:" + e);
-                    System.exit(0);
+                    System.exit(0); //prevents infinite loop by closing with error
                 }
                 // Find the right operand
                 int rightEnd = i + 1;
                 if (calculation.charAt(rightEnd) == '-') {
-                    rightEnd++; // Move past the negative sign
+                    rightEnd++; // Move past the negative sign so it doesn't get stuck
                 }
                 while (rightEnd < calculation.length() && (Character.isDigit(calculation.charAt(rightEnd)) || calculation.charAt(rightEnd) == '.')) {
                     rightEnd++;
@@ -114,7 +122,7 @@ public class Operations{
                 {
                     System.err.println("Right Opp error:" + e);
                 }
-                // Perform the operation -temp
+                // Perform the operation
                 try {
                 double result = 0;
                 switch (currentChar) {
