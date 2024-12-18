@@ -25,9 +25,8 @@ public class Operations extends Calculator{
             {
                 temp_calc = evaluate(temp_calc,"*/");
             }
-            while (temp_calc.contains("+")||(!temp_calc.matches(".*\\d-.*") && !(temp_calc.charAt(0) == '-') && temp_calc.contains("-"))) // this ensures that - is only evaluated when it means take not for a negitive num
+            while (temp_calc.contains("+")||(temp_calc.matches(".*\\d-.*") && !(temp_calc.charAt(0) == '-') && temp_calc.contains("-"))) // this ensures that - is only evaluated when it means take not for a negitive num
             {
-                System.err.println("fuck's sake");
                 temp_calc = evaluate(temp_calc,"+-");
             }
             //create a string builder with our calculation string
@@ -55,7 +54,7 @@ public class Operations extends Calculator{
         }
 
         // Then + and -
-        while (calculation.contains("+") || (!calculation.matches(".*\\d-.*") && !(calculation.charAt(0) == '-') && calculation.contains("-"))) { // this ensures that - is only evaluated when it means take not for a negitive num
+        while (calculation.contains("+") || (calculation.matches(".*\\d-.*") && !(calculation.charAt(0) == '-') && calculation.contains("-"))) { // this ensures that - is only evaluated when it means take not for a negitive num
             calculation = evaluate(calculation, "+-");
         }
 
