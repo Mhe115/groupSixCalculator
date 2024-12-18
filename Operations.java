@@ -103,8 +103,9 @@ public class Operations{
                 }
                 catch (Exception e)
                 {
-                    System.err.println("Left Opp error:" + e);
-                    System.exit(0); //prevents infinite loop by closing with error
+                    continue;
+                    //System.err.println("Left Opp error:" + e);
+                    //System.exit(0); //prevents infinite loop by closing with error
                 }
                 // Find the right operand
                 int rightEnd = i + 1;

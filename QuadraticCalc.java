@@ -8,8 +8,7 @@ public class QuadraticCalc {
         double discriminant = b * b - 4 * a * c;
         System.out.println("B squared is " + (b * b));
         System.out.println("-4 multiplied by A and C is " + (-4 * a * c));
-        System.out.println("2 multiplied by A is " + (2 * a));
-        System.out.println("");
+        System.out.println("2 multiplied by A is " + (2 * a) + "\n");
 
         if (discriminant >= 0) {
             double sqrtDiscriminant = Math.sqrt(discriminant);
