@@ -44,12 +44,16 @@ public class SyntaxHandler {
                             valid = false;
                             //System.out.println(input.charAt(i+1));
                             int char_id = input.charAt(i+1);
-                            if(char_id>=65&&char_id<=90||char_id>=97&&char_id<=122) //test to see if its a letter
+                            if((char_id>=65&&char_id<=90||char_id>=97&&char_id<=122) && !(char_id == 101 || char_id == 112)) //test to see if its a letter
                             {
                                 System.out.println("Invalid Calculation: Unexpected letter/unassigned variable");
                             }
                             else if(char_id==42||char_id==43||char_id==45||char_id==47||char_id==94){
                                 System.out.println("Invalid Calculation: Expected two operands for every operator");
+                            }
+                            //allow for e and p
+                            else if(char_id == 101 || char_id == 112){
+                                valid = true;
                             }
                             else
                             {
