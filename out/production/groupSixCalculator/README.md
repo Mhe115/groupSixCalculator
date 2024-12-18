@@ -1,2 +1,0 @@
-# groupSixCalculator
-Block Two Project

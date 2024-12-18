@@ -86,7 +86,6 @@ public class Main {
                         {
 
                         }
-                        //input.close();
                     }
                     break;
                 case QUADRATICCALC:
@@ -99,7 +98,6 @@ public class Main {
                             String calculation = user_input;
                             SyntaxHandler tester = new SyntaxHandler();
                             String[] num_array = calculation.split(",");
-                            //System.out.println(Arrays.toString(num_array));
                             //allow the user to input, if what they enter is valid according to the verify string
                             //method, we calcualte using that input
                             if (tester.veriftyQuadratic(calculation)) {
